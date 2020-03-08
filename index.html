@@ -5,11 +5,44 @@
 	<title></title>
 </head>
 <body>
+	<!-- 这里就是View(视图)层 -->
+	<div id="container">
+		{{ arr }}
+
+		{{ name[0].n }} - {{ name[1] }}
+	</div>
 	<script src="./node_modules/vue/dist/vue.js"></script>
 	<script>
-		new Vue({
-			
+		// new Vue() 出来的实例就是ViewModel(VM)
+		let vm = new Vue({
+			el: '#container',		// 默认调取原生js的querySelector方法寻找节点
+			data(){
+				// 这里就是Model(模型)层
+				return{
+					// name: 'zf',
+					arr: [1,2,3]
+					name: [{n:100},2]
+				}
+			}
 		})
+
+		// vue是响应式变化的,如果视图更新的了,默认会刷新视图
+		console.log(vm)
+		vm.name = '123';
+
+		// data可以绑定的数据类型,什么样的数据可以响应式变化
+		vm.arr[0] = 1000;
+
+
+
+		// vue源码中是如何实现响应式变化的
+
+
+		// 如果数组里放的是对象,那么更改对象中的属性是可以导致视图更新的
+			vm.name[0].n = 200		// 只有数组里面放对象的时候才会改,
+			vm.name[1] = 2		// 数组中如果是常量的时候不会修改,
+
+
 	</script>
 </body>
 </html>
