@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<!-- vue MVVM双向数据绑定 用户可以更改视图 （表单input select radio checkout textarea）-->
+	<div id="app">
+		<!-- input textarea -->
+		<textarea v-model="text"></textarea>
+		<!-- select -->
+
+
+		<!-- 多个选择值都是数组（multiple多选） -->
+		{{ selectValue }}
+		<select v-model="selectValue" multiple>
+			<option value="" disabled>请选择</option>
+			<option :value="o.id" v-for="o of selectOptions">{{ o.value }}</option>
+		</select>
+
+
+		<!-- radio男女 分组  根据v-model来取对应的值-->
+		<input type="radio" value="男" v-model="radioValue">
+		<input type="radio" value="女" v-model="radioValue">
+
+		<!-- checkbox默认是不选择  true和false -->
+		<input type="checkbox" v-model="check" value="健身">
+		<input type="checkbox" v-model="check" value="厉害">
+		<input type="checkbox" v-model="check" value="哈哈">
+
+
+		<!-- 修饰符 
+			trim去前后空格 
+			number可以限制只能输入数字
+		-->
+		<input type="" name="" v-model.tirm="text">
+
+
+		<!-- 如何自定义指令： 操作DOM元素的，可以把操作dom元素的功能封装到一起 -->
+		
+
+
+	</div>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		let vm = new Vue({
+			el: '#app',
+			data:{
+				text: 'zf',
+				selectValue: [],
+				selectOptions:[
+					{value: '香蕉',id:1},
+					{value: '哈哈',id:2}
+				],
+				radioValue: '男',
+				check:[]
+			}
+		})
+	</script>
+</body>
+</html>
