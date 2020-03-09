@@ -1,0 +1,185 @@
+<!Doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<!-- 这里就是View(视图)层 -->
+	<div id="app">
+		{{ name }}
+		{{ 1+1 }}
+		{{ [1,2,3] }}
+		{{ true?'是':null }}
+		<!-- 去对象,必须空格隔开 -->
+		{{ {name:123} }}
+
+		<!-- 只渲染一次 -->
+		<span v-once>一次{{ name }}</span>
+		<!-- 不要讲用户输入的内容显示到页面上 XSS攻击 -->
+		<!-- 后端返回的数据 可以通过v-html来格式化 -->
+		<span v-html="tmp"></span>
+
+		<!-- v-bind 动态绑定 -->
+		<span v-bind:title="name"></span>
+		<span :title="name"></span>
+
+		<!-- v-for 循环数据 数组|对象|数字|字符串 -->
+		<!-- 要循环谁就将v-for写到谁的身上 -->
+		<!-- vue中的key有什么作用 区分元素 -->
+		<!-- 
+			1.只是静态展示可以使用这个index 
+			2.尽量不要使用index来当key(如果倒叙会重新删除创建一个),性能不好,尽量使用唯一的key来区分元素(唯一的key,只是移动)
+		index -->
+		<!-- 每次循环的时候可以自己拼接key,保证内容的唯一性 -->
+		<ul>
+			<template v-for="(fruit,index) of arr">
+				<li :key="`name_${index}`">{{  fruit }}</li>
+				<li :key="`color_${index}`">{{  fruit }}</li>
+			</template>
+			
+
+			<li v-for="(fruit,index) in arr" :key="index">{{  fruit }}</li>
+		</ul>
+
+
+		<!-- 
+			v-if(操作dom是否显示(存在)) / 
+			v-show(显示隐藏 style)
+			template不能和v-show一起使用
+		-->
+
+
+		<!-- 指令的功能是封装dom操作的 -->
+		<template v-if="isShow">
+			<div>
+ 				你好
+			</div>
+		</template>
+		<template v-else>
+			<div>
+ 				你好
+			</div>
+		</template>
+
+		<div v-show="isShow">你好</div>
+		<div v-show="!isShow">不好</div>
+
+
+
+		<!-- 双向绑定  只要能改的  组件也可以双向绑定 -->
+		<hr>
+
+		<!-- 如何绑定方法 -->
+		<div>{{ value }}</div>
+
+		<!-- $event是事件源 -->
+		<input :value="value" @input="fn($event)">
+		<input :value="value" @input="e=>value=e.target.value">
+		<!-- v-model 他就是上面两种方式的语法糖 -->
+		<input type="text" v-model="value">
+	</div>
+	<!-- 
+		v-once
+		v-html
+		v-bind
+		v-for
+		v-if /else show
+		v-model	双向绑定
+		v-on是@的全拼
+	-->
+	<script src="./node_modules/vue/dist/vue.js"></script>
+	<script>
+		let vm = new Vue({
+			el: '#app',
+			methods:{	
+			// 把所有的方法的this都变成了vm,
+			// bind把this绑定死了,多次bind不生效
+				fn(e){
+					this.value = e.target.value
+				}
+			},
+			data(){
+				return {
+					// fn(){ // this指代的都是window
+					// 	alert(1)
+					// },
+					value: '你好',
+					isShow: true,
+					name: 'zf',
+					tmp: '<h1>我很帅</h1>',
+					arr: ['香蕉','苹果','橘子']
+					// age: {}
+				}
+			}
+		})
+		// 1).vue有个特点,不会在本轮代码执行的时候,去重新渲染DOM
+		// 2).下一个事件环中执行,(promise.then, mutationobserver,setimmdediate,settimeout)
+		
+		// 这里会等待数据更新后重新调用回调函数
+		// 视图是异步更新的
+		vm.$watch("name",function(newValue,oldValue){
+			console.log(newValue,oldValue)
+		})
+		// vm.name = '哈哈哈'
+		// vm.name = "哈哈哈1"
+
+
+		// 数据更新后会有一个队列, 将watch的的callback放到队列中,会将nextTick往后叠加
+		vm.$nextTick(()=>{	
+			console.log(vm.$el.innerHTML)
+		})
+
+		// console.log(vm.$el);			// 渲染真实的dom元素
+		// debugger;
+
+
+
+
+		// vm.$data;			// 代表当前实例的数据
+		console.log('vm.$data',vm.$data);
+		console.log('vm.$options',vm.$options);
+
+		// vm.$set  vm.$delete  帮我们更新属性的
+		// 新增的属性不会导致视图更新,更改数组的索引也不会更新 
+		 	// vm.age.age  = 100  
+		 	// vm.$set(vm,'age',100);	// Avoid adding reactive properties to a Vue instance or its root $data at runtime - declare it upfront in the data option.
+		 	// 避免在运行时向Vue实例或其根$data添加反应性属性-在data选项中预先声明它
+			vm.$set(vm.age,'age',100);		// Object.property
+
+
+		// 实例属性
+		// vm.$el
+		// vm.$options		new Vue({}) 整个对象 ===== new Vue时传进去的对象
+		// vm.$nextTick
+		// $props
+		// $parent
+		// .$root
+		// .$children
+		// .$slots
+		// .$scopedSlots
+		// .$refs
+		// $isServer
+		// $attrs
+		// $listeners
+
+		// 实例方法/数据
+		// vm.$watch
+		// vm.$set
+		// vm.$delete
+
+		// 实例方法/事件
+		// $on
+		// $once( event, callback )
+		// $off( [event, callback] )
+		// $emit( eventName, […args] )
+
+		// 实例方法/生命周期
+		// vm.$mount
+		// vm.$forceUpdate
+		// vm.$nextTick
+		// vm.$destroy
+
+	</script>
+</body>
+</html>
