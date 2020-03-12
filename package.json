@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/songkangle0826/vue_base#readme",
   "dependencies": {
+    "vant": "^2.5.4",
     "vue": "^2.6.11"
   }
 }
