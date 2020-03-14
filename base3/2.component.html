@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+</head>
+<body>
+<div id="app">
+    <!-- 将父组件的数据 通过儿子的属性传入 -->
+    <my :mny="mny" :arr="arr"></my>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // 组件   复用,方便维护,减少渲染
+    // 全局组件  局部组件
+    /*
+    * 如果把vue 在html中使用,要注意
+    *  1.html不支持自定义闭合标签
+    *  2.标签名不要和原生的一样
+    *  3.如果组件名有大写的情况,html中没有大写的标签,并且全部采用小写+短横线方式
+    * */
+
+    // 组件特点就是独立  每个组件间应该是不想关的,vue是单向数据流
+    Vue.component('my',{
+        template: `<div>my组件</div>`,
+        data(){
+            return{}
+        }
+    })
+
+    /*
+    * 局部组件
+    * 每个组件都应该有三部分: 1.html  2.js  3.样式
+    * 方式:  单向数据流
+    * */
+    let component = {
+        template: `<div>儿子  {{ mny }}  <button @click="change">更改</button></div>`,
+        // props:['mny'],      // 变成了当前实例上的属性了
+        props:{ // 表示我要对属性进行校验
+            mny:{
+                // 普通的类型值 默认值即可,  如果是对象或者数组 必须写成函数的返回值即可
+                type: Number,   // 类型判断
+                default: 0,
+                // required: true, 必填
+            },
+            arr:{
+                type: Array,   // 类型判断
+                default: ()=>{
+                    return [1,2,3]
+                },
+            }
+        },
+        data(){
+            return{
+                m:1
+            }
+        },
+        methods:{
+            change(){
+                // this.mny = 200;     // 不靠谱,不应该儿子去更改父亲的数据
+            }
+        },
+        beforeCreate(){
+            console.log(this.$parent.$children[0] == this);     // true
+        }
+
+    }
+
+
+    let vm = new Vue({
+        el: '#app',
+        data(){
+            return{
+                mny: 100,
+                arr: [1,2,3]
+            }
+        },
+        components:{  // 在实例上注册组件
+            my: component
+        }
+    })
+    // 组件的使用 三步: 1.导入一个组件  2.注册   3.使用(在当前组件定义的模板中使用
+
+</script>
+</body>
+</html>

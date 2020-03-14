@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+    <meta >
+    <style>
+        .card{
+            position:fixed;
+            bottom: 0;
+            width: 100px;
+            height: 30px;
+            background-color: red;
+            right:0;
+        }
+        li span{
+            display: block;
+            width:100px;
+            height: 30px;
+            line-height: 30px;
+            background: red;
+            text-align: center;
+        }
+        .content-span{
+            display: block;
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            transition: all 1s cubic-bezier(0,0,0.25,1);
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(item,index in list" ref="lists">
+            <span >{{ item.name }}</span>
+            <button @click="addCard(index)">加入购物车</button>
+        </li>
+    </ul>
+    <transition @enter="enter" @after-enter="after">
+        <span class="content-span" v-if="isShow"></span>
+    </transition>
+    <div class="card" ref="card">快进来</div>
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+    // 动画库   Velocity
+    let vm = new Vue({
+        el: '#app',
+        data(){
+            return{
+                isShow: false,
+                list: [{
+                    name: 'javascript',
+                },{
+                    name: 'java',
+                },{
+                    name: 'python',
+                }],
+                currentIndex: -1
+            }
+        },
+        methods:{
+            // 进入
+            enter(el,done){  // el当前动画元素  done动画完事了 需要调取done方法
+                // 如果将ref 添加到v-for 可以通过this.$refs.lists = ['真实的DOM']
+                let li = this.$refs.lists[this.currentIndex];
+                // 获取元素的偏移量x,y
+                let { x,y } = li.getBoundingClientRect();
+                console.log(x,y)
+                el.style.left = x+'px'
+                el.style.top = y+'px'
+                el.style.background = `rgba(0,0,0,0.5)`;
+                let card = this.$refs.card
+                let  {x:cardX,y:cardY} = card.getBoundingClientRect();
+                console.log(cardX-x,cardY-y)
+
+                el.style.transform = `translate3d(${cardX-x}px,${cardY-y}px,0)`;
+
+                el.addEventListener('transitionend',done)
+
+            },
+            after(){
+                console.log(111)
+                this.isShow = false
+            },
+            change(){
+                this.isShow = !this.isShow
+            },
+            addCard(index){
+                this.currentIndex = index;      // 点击谁就保存谁
+                this.isShow = true
+            }
+        }
+    })
+</script>
+</body>
+</html>

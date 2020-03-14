@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		.content{
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+		.v-enter{
+			background: blue;
+		}
+		.v-enter-active{
+			background: purple;
+			transition: all 10s linear;
+		}
+		.v-enter-to{
+			background: green;
+		}
+		/* 进入最终编成了红色 */
+		.v-leave{
+			background: red;
+		}
+		.v-leave-active{
+			background: blue;
+			transition: all 10s linear;
+		}
+		.v-leave-to{
+			background: purple;
+		}
+		/* v-leave-to 消失了 */
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!--
+			vue中的动画
+		 	什么时候会触发动画
+		 		v-if v-for(增加删除) v-show 路由切换
+
+		 -->
+		<button @click="change">点击</button>
+		<transition>
+			<div v-if="isShow" class="content">
+				content
+			</div>
+		</transition>
+
+	</div>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		let vm = new Vue({
+			el: '#app',
+			data(){
+			    return{
+					isShow: false
+				}
+			},
+			methods:{
+			    change(){
+					this.isShow = !this.isShow
+				}
+			}
+		})
+	</script>
+</body>
+</html>

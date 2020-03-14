@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" user-scalable="no">
+</head>
+<body>
+<div id="app">
+{{  }}
+</div>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        // el: '#app',
+        data:{
+            n: 1
+        },
+        // 前端这个实例的父亲是谁  儿子是谁  有一套发布订阅 $on  $emit $off
+        beforeCreate(){
+            // 创建之前
+            console.log(this)   // 混合 我希望在每个组件中增加一些特东的属性,可以采用这个钩子,基本上业务逻辑不需要他的(拿不到data的值)
+
+            console.log('beforeCreate')
+        },
+        created(){
+            // 当前这个组件实例 已经实现了 数据劫持,把方法,计算属性也都挂载到了实例上,不能获取到真实的dom元素
+            console.log('created')          // 创建ajax,但是不能操作dom
+        },
+//        render(){  // 如果有了render 就不会使用template
+//            console.log('render')
+//        },
+        // template: `<div>hello</div>`,
+        beforeMount(){  // 在挂载之前会调用render方法
+            console.log('挂载之前')
+            // 调用render,但是一般不会增加业务逻辑
+        },
+        mounted(){      // 直接把ajax的操作直接放到mounted中
+            console.log('当前组件挂载完成')
+            console.log(vm.$el)
+        },
+
+        // 组件化的好处    1.方便复用,2.比较好维护,3.简写不必要的渲染
+        // vue的更新方式是组件级别的
+        beforeUpdate(){     // 数据是应用到视图上的
+            console.log('更新之前')  // 可以在这里增加一些数据更新,不会导致视图更新
+        },
+        Updated(){  // 不要再去更新数据, 可能会发生死循环
+            console.log('更新完成') // 不要在这里改数据
+        },
+        beforeDestroy(){  // 做的事: 事件的移除,清空定时器
+            console.log('销毁前')
+        },
+        destroyed(){
+            console.log('销毁后')
+        }
+
+    })
+
+    // $mount 可以指定一个元素,不指定元素的话 内部会默认渲染到一个内存中的节点
+    // vm.$mount('#app')
+    vm.$mount('#app')     // 默认渲染到一个内存中的节点
+    //console.log(vm.$el)
+    // 我可以将渲染好的元素插入到自己想要放的节点中
+    // document.body.appendChild(vm.$el)
+
+
+    // 组件销毁
+        // 1.手动移除组件
+        // 2.路由切换
+
+    vm.$destory();  // 1.移除所有的观察者,2.移除监听事件
+
+
+    // 每个组件都有这套流程
+
+</script>
+</body>
+</html>
