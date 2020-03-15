@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="">
+		input{
+			border:1px solid red;
+		}
+		.content{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		
+	</div>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		// computed 和 watch的区别 有时候可以实现相同的功能
+		// computed 计算 会根据其他的值来计算
+		// watch 监控，监控某个值的变化
+		// 这两个方法都是基于vm.$watch实现的
+
+		// 区别
+		// 1.都是基于new Watch实现的
+		// 2.watch每次值变化后 都能执行对应的回调vm.$watch => new Watch
+		// 3.computed 计算属性，多次取值是有缓存效果的，如果依赖的值变化，会重新执行
+
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				name: 'zf',
+				age: 19
+			},
+			// 当一个值变化，可以做一件事，调用ajax
+			watch:{
+				name(newVale,oldValue){
+					console.log(newValue)
+				},
+				name:{
+					handle(newValue){
+						console.log(newValue)
+					},
+					immediate: true,		//立即执行handler
+					deep: true,				//深度监控
+					lazy: true				//就是computed的实现
+				}
+			},
+			computed:{
+				// conputed内部具有缓存，如果依赖的属性没有变化，不会重新执行对应的函数
+				fullname(){ // new Watch
+					return this.name
+				}
+			}
+
+		})
+
+
+		// let dirty = true
+		// function initCouputed(key,handler){
+		// 	let value;
+		// 	Object.defineproperty(vm,key,{
+		// 		get(){
+		// 			if(dirty){
+		// 				value = handler()
+		// 			}
+		// 			return value
+		// 		}
+		// 	})
+		// }
+		// initComputed('fullname',()=>{
+		// 	return vm.name + 'jw'
+		// })
+		// // 计算属性最大的特点，可以缓存
+		// vm.fullname
+		// vm.fullname
+		// vm.name = 'jw'
+		// dirty = true;		// 如果值发生变化，内部会把dirty变成true
+		// console.log(vm.fullname)
+
+
+		// watch的底层实现
+		// function initWatch(watch){
+		// 	for(let key in watch){
+		// 		vm.$watch(key,watch[key])
+		// 	}
+		// }
+		// initWatch(
+		// 	{
+		// 		name(newValue){
+		// 			console.log(newValue)	
+		// 		}
+		// 	},
+		// 	{
+		// 		age(newValue){
+		// 			console.log(newValue)
+		// 		}
+		// 	}
+		// )
+
+
+
+	</script>
+</body>
+</html>

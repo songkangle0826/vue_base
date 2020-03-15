@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="">
+		input{
+			border:1px solid red;
+		}
+		.content{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<!-- vue MVVM双向数据绑定 用户可以更改视图 （表单input select radio checkout textarea）-->
+	<div id="app">
+		<!-- 日历 弹层 -->
+		<div v-click-outside>
+			<input type="" name="">	
+			<div class="content"  v-if="isShow">
+				content
+				<button>点我</button>
+			</div>
+		</div>
+	</div>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		// 可以实现点击判断是否存中当前的dom中
+		let vm = new Vue({
+			el: '#app',
+			// 局部声明自定义指令
+			directives:{		// 可以声明多个，所以是复数
+				clickOutside: {
+					bind(el,bindings,vnode){
+						// document.addEventListener('click',(e)=>{
+						// 	if(el.contains(e.target)){
+						// 		vnode.context['focus']()
+						// 	}else{
+						// 		vnode.context['blur']()
+						// 	}
+						// })
+						el.fn = (e)=>{
+							if(el.contains(e.target)){
+								vnode.context['focus']()
+							}else{
+								vnode.context['blur']()
+							}
+						}
+
+						document.addEventListener('click',el.fn)
+					},		
+					unbind(el,bindings,vnode){  // 事件绑定必须要解绑
+						document.removeEventListener('click',el.fn)
+					}
+				}
+			},
+			data(){
+				return{
+					isShow: false
+				}
+			},
+			methods:{
+				focus(){
+					this.isShow = true;
+				},
+				blur(){
+					this.isShow = false;
+				}
+			}
+			
+		})
+	</script>
+</body>
+</html>

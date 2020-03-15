@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+</head>
+<body>
+	<div id="app">
+
+		<!-- {{ getFullname() }} {{ b }} -->
+
+		{{ getFullname }} {{ b }}
+
+		<input type="checkbox" name="" v-model="checkAll">
+		<input type="checkbox" name="" v-for="(check,index) in checks" v-model="check.value">
+
+	</div>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		// method是没有缓存的
+		// computed
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				firstname: 'z',
+				lastname: 'f',
+				b: 2,
+				checks:[{value:true},{value:false},{value:false}]
+			},
+			methods:{
+				// 没有缓存 只要页面渲染就会执行
+				// getFullname(){
+				// 	console.log(1)
+				// 	return this.firstname + this.lastname
+				// }
+			},
+			computed:{	// 内部是defineproperty
+				checkAll:{
+					get(){	// 一个为false就为false
+						return this.checks.every(check=>check.value)
+					},
+					set(newValue){
+						this.checks.forEach(check=>{
+							check.value = newValue
+						})
+					}
+					
+				},
+				// 只要当值变化的时候才会执行
+				getFullname(){
+					console.log(1)
+					return this.firstname + this.lastname
+				}	
+			}
+			
+
+		})
+	</script>
+</body>
+</html>
