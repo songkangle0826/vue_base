@@ -282,7 +282,13 @@ router.push({
 // 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录
 
 
+## Vue-Vuex原理
+vuex是vue的状态管理工具，为了更方便实现多个组件共享状态
+通过流程图来掌握vuex工作原理
 
+
+
+## Vue-SSR
 
 
 
