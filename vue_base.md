@@ -73,6 +73,216 @@ MVVM(Model-View-ViewModel) : 是模型(Model)－视图(View)－视图模型(View
 
 ## Vue如何编写自己的指令?
 
+## 内容分发
+### 匿名插槽
+
+### 具名插槽
+
+### 作用域插槽
+
+## vue-router
+在@vue/cli3.0以上使用vue-router
+安装vue add router
+
+
+### 路由视图
+```html
+<router-view>
+```
+### 导航链接
+```html
+<router-link to="/">Home</router-link>
+<router-link to="/about">About</router-link>
+```
+
+### 为什么要Vue.router(Router)?
+
+### <router-view />、<router-link to="/"></router-link>哪里来的
+
+### 他们的功能是怎么实现的
+
+### 路由嵌套
+应用页面通常有多层嵌套的组件组合而成的.同样的,URL中隔断动态路径也按照某种结构对应嵌套的各层组件
+- 创建List.vue
+- 配置路由router.js
+```javascript
+let vueRouter = {
+    path: '/',
+    component:Home,
+    children:[{
+        path: '/list',
+        name: 'list',
+        component: List
+    }]
+}
+```
+- 添加路有插座,Home.vue
+```vue
+<template>
+    <div class="home">
+        <h1>首页</h1>
+        <router-view></router-view>     <!--  这里相当于插座,把页面插进去  -->
+    </div>
+</template>
+```
+
+### 动态路由
+示例
+- 页面取值
+```vue
+<template>
+    <div>
+        商品详情: 以路由的方式取{{ $route.params.id }}  
+        <br/>
+        <br/>
+        商品详情: 以属性的方式取{{ id }}  
+    </div>
+</template>
+<script>
+export default{
+    props: {
+        id:{
+            type: String,
+            default: ''
+        }
+    }
+}
+</script>
+```
+- 路由配置
+```javascript
+let vueRouter = {
+    path: '/',
+    component:Home,
+    beforeEnter(){
+        
+    },
+    children:[
+        {path: '/list',name: 'list',component: List},
+        // {path: '/details/:id',component: Details},
+        {path: '/details/:id',component: Details,props: true},
+    ]
+}
+```
+
+
+### 路由守卫
+路由导航过程中有若干个生命周期钩子,可以在这里实现逻辑控制
+- 全局守卫,router.js
+
+### 路由独享守卫
+```javascript
+beforeEnter(to,from,next){
+    路由内部知道自己需要认证
+    if(isShow){
+        
+    }else{
+        
+    }
+}
+```
+
+
+
+
+### 完整的导航解析流程
+```javascript
+/*
+* 1.导航被触发
+* 2.调用全局的beforeEach守卫
+* 3.在重用的组件里调用beforeRouteUpdate守卫
+* 4.在利用配置里调用beforeEnter
+* 5.再激活的组件里调用beforeRouteEnter
+* 6.调用全局的beforeResolve守卫(2.5+)
+* 7.导航被确认
+* 8.调用全局的afterEach钩子
+* 9.触发DOM更新
+* */
+```
+
+
+### vue-router拓展
+#### 动态路由
+利用$router.addRoutes()可以实现动态路由添加,常用于用户权限控制
+```javascript
+router.js
+返回的数据可能是这样的
+[{
+    path: '/',
+    name: 'home',
+    component: Home
+}]
+
+// 异步获取路由
+api.getRoutes().then(routes=>{
+    const routeConfig = routes.map(route=>mapComponent(route));
+    router.addRoutes(routeConfig)
+})
+
+
+// 映射关系
+const conpMap = {
+    'Home': Home,                               // 同步
+    'Home': ()=> import('./view/Home.vue')      // 异步
+}
+
+// 递归替换
+function mapComponent(route){
+    route.component = compMap[route.component];
+    if(route.children){
+        route.children = route.children.map(child=>mapComponent(child))
+    }
+    return route;
+}
+```
+
+### 面包屑
+利用$route.matched课得到路由匹配数组,按顺序解析可得路由层次关系
+```javascript
+watch:{
+    $route(){
+        console.log(this.$route.matched);
+        this.crumbData = this.$route.matched.map(m=>m.name);
+    }
+}
+```
+
+### 声明式的导航
+
+<router-link :to="...">
+
+### 编程式的导航
+#### router.push(location, onComplete?, onAbort?)
+```javascript
+// query 
+// 带查询参数，变成  /register?a=1
+router.push({
+    path: 'register',
+    query: {
+        a: 1
+    }
+})
+// 命名的路由 /
+router.push({
+    name: 'user', 
+    params: { 
+        userId: '123' 
+    }
+})
+/*
+  params和query传参的区别?
+    params不会带在导航中,一刷新就没有了
+    query会带在导航中,刷新还在
+*/
+
+```
+
+
+#### router.replace(location, onComplete?, onAbort?)
+
+// 跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录
+
+
 
 
 
