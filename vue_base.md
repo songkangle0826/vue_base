@@ -248,7 +248,9 @@ watch:{
 ```
 
 ### 声明式的导航
-<router-link :to="...">
+```
+    <router-link :to="...">
+```
 
 ### 编程式的导航
 #### router.push(location, onComplete?, onAbort?)
