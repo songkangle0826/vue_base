@@ -21,5 +21,10 @@ console.log(arr.lastIndexOf(1,-2))   // 11
 
 console.log(arr.lastIndexOf(1,-3))   // 9
 
+console.log(arr.lastIndexOf(1,3))     // 0
+
+console.log(arr.lastIndexOf(1,11))     // 11
+
 console.log(arr.lastIndexOf(10))     // -1
+
 
