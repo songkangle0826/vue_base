@@ -306,11 +306,13 @@ vuex是vue的状态管理工具，为了更方便实现多个组件共享状态
 
 
 SSR体验: nuxt.js
-Nuxt.js是一个机遇Vue.js的通用应用框架
+
+Nuxt.js是一个基于Vue.js的通用应用框架
 通过对客户端/服务端基础架构的抽象组织,,Nuxt.js主要关注的是应用的UI渲染
 
 
-
+// 全局安装create-nuxt-app
+npm i -g create-nuxt-app 
 
 
 
