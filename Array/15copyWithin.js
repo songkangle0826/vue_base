@@ -8,7 +8,9 @@
 *   start: 元素复制的起始位置
 *   end: 元素复制的终点位置
 * 返回值:
-*
+*   替换后的数组
+* 是否改变原数组
+*   是
 * */
 
 let arr = [1,2,3,4,5];
@@ -18,3 +20,6 @@ let arr = [1,2,3,4,5];
 // console.log(arr.copyWithin(0,3));       // [4,5,3,4,5]
 
 console.log(arr.copyWithin(1,3,4));        // [1,4,3,4,5]
+
+
+console.log(arr)            //
