@@ -319,9 +319,55 @@ npm i -g create-nuxt-app
 
 
 
+## Vue运行的原理
+
+### Vue工作机制
+初始化:
+
+在new Vue()之后,Vue会调用进行初始化,会初始化声明周期,事件,props,methods,data,computed与watch等
+其中最重要的是通过Object.defineProperty设置setter和getter,用来实现[响应式]和[依赖收集]
+
+初始化之后用$mount挂载组件
 
 
+### 编译: 
+编译分为单个阶段:
 
+1.parse: 使用正则解析template中的vue的指令(v-xxx)变量等等,形成抽象的语法树AST
+
+2.optimize: 标记一些静态节点,用作后面的性能优化,在diff的时候直接略过
+
+3.generate: 把第一步生成的AST转换为渲染函数render function
+
+### 响应式
+这一块是vue最核心的内容,初始化的时候通过defineProperty定义对象getter,setter,设置通知机制
+当编译生成放入渲染函数被式实际渲染的时候,会触发getter进行依赖收集,在数据变化的时候,触发setter进行更新
+
+### 虚拟DOM
+Virtual Dom是react首创,Vue2开始支持,就是用javascript对象来描述dom结构,数据修改的时候,我们先把修改虚拟dom中的数据,然后数组做diff,最后在汇总所有的diff,力求做最少的dom操作,毕竟js里对比很快,而真实的dom操作太慢
+虚拟DOM,减少页面更新的次数与模块
+```javascript
+let obj = {
+  tag: 'div',
+  props: {
+      name: '开课吧',
+      style: {color:red},
+      onClick: xx
+  },
+  children:[
+      { 
+          tag: 'a',
+          text: 'click me'
+      }
+  ]
+}
+```
+
+### 更新视图
+数据修改触发setter,然后监听器会通知进行修改,通过对比新旧vdom树,得到最小的修改,就是patch,然后只需要把这些差异修改即可
+
+
+### 依赖收集和追踪
 
 
 
