@@ -1,7 +1,7 @@
 /*
-* reducer() 方法对数组中的每个元素执行一个由您提供的rreducer函数,将其结果汇总成单个元素返回
+* reduce() 方法对数组中的每个元素执行一个由您提供的rreducer函数,将其结果汇总成单个元素返回
 * 语法:
-*   objarray.reducer(callback,initialValue)
+*   objarray.reduce(callback,initialValue)
 * 参数:
 *   callback: 提供的函数
 *      accumulator: 累计器
