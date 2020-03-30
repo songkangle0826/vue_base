@@ -376,4 +376,19 @@ let obj = {
 
 
 
+## webpack优化
+1、vue+webpack开发打包后， vue-router ,vue,vue-resource,iview等js会打包到一起导致文件较大（ 移动端带宽不接受太大的文件）
+   解决：
+不是公用插件在需要的页面引入；
+在webpack.base.conf 中添加 externals来告诉webpack我们这些第三方库不需要打包;
+
+       
+2、类似官网页面需要页面同步输出内容（seo），除了研究ssr，可尝试使用 prerender-spa-plugin 预渲染
+
+
+
+
+
+
+
 
