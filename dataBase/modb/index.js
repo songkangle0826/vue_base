@@ -5,6 +5,7 @@
 // NoSql(not Only Sql)的介绍
 	// 非关系型数据库
 
+/*
 	什么时候使用NoSql?
 		1.对数据库高并发读写需求
 		2.对海量数据的高效率存储和访问的需求
@@ -80,6 +81,7 @@
 	db.user.remove({"name":"zhaosi"},{justOne:true})
 
 
+*/
 
 
 
