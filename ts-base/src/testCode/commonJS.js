@@ -4,4 +4,4 @@ var es6 = require('./es6module');
 //     name: '哈哈哈',
 //     age: 25,
 //     default: '北京'
-// } 
+// }
