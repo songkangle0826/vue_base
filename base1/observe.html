@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+</head>
+<body>
+<div id="app">
+	{{ a }}
+	<div>a的值是{{ a.a }}</div>
+	<p>b的值是{{ b }}</p>
+</div>
+<script src='./mvvm.js'></script>
+<script>
+	let a = new Vue({
+		el: '#app',
+		data: { 
+			a:{ a: 1 },
+			b: 1
+		}  // Object.defineProperty(obj,'a',1)
+	})
+</script>
+<script type="text/javascript">
+	let el =  document.querySelector("#app");
+	console.log(el)
+	let fragment = document.createDocumentFragment();
+	while(child = el.firstChild){
+		fragment.appendChild(child)
+	}
+	console.log(fragment)
+	let arrs = Array.from(fragment.childNodes).forEach((node)=>{
+		console.log(node)
+	})
+	console.log(arrs)
+</script>
+</body>
+</html>
