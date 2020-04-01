@@ -102,7 +102,8 @@ function greeting(name: string): void | null{
 }
 greeting('哈哈哈')
 
-
+let unusable1:void = null
+let unusable2:void = undefined;      // Cannot redeclare block-scoped variable 'unusable'
 
 // never 永远不
 // never 是其他类型子类型,代表不会出现的值
@@ -124,6 +125,8 @@ function sum(): never{
     // console.log('end point')
 }
 
+let num123: never;
+// num123 = 134
 
 
 // 推论 猜
@@ -168,7 +171,7 @@ name6.toFixed(2)
 
 let name7:string | number;
 // 断言成一个字符串
-(name7 as string).toLocaleLowerCase()
+// (name7 as string).toLocaleLowerCase()
 // (name7 as number).toFixed(2);
 
 

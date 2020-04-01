@@ -69,6 +69,8 @@ function greeting(name) {
     // return null | undefined 这个是可以的
 }
 greeting('哈哈哈');
+var unusable1 = null;
+var unusable2 = undefined; // Cannot redeclare block-scoped variable 'unusable'
 // never 永远不
 // never 是其他类型子类型,代表不会出现的值
 // 第一种类型:  在函数内部永远会抛出错误,导致函数无法正常结束
@@ -86,6 +88,8 @@ function sum() {
     // 永远不会走到这里
     // console.log('end point')
 }
+var num123;
+// num123 = 134
 // 推论 猜
 var name2 = 2;
 name2 = 3;
@@ -114,7 +118,7 @@ name6 = 6;
 name6.toFixed(2);
 var name7;
 // 断言成一个字符串
-name7.toLocaleLowerCase();
+// (name7 as string).toLocaleLowerCase()
 // (name7 as number).toFixed(2);
 // 字面量类型 多个值组合
 var Gender3;

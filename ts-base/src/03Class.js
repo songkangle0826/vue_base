@@ -114,8 +114,6 @@ var d;
         Student.type = 'Student'; // 静态属性(类的属性)  // 类的本身的属性和方法
         return Student;
     }(Person));
-    Student.prototype.ajax = 1123;
-    console.log(Student.prototype, 12345);
     var s = new Student("skl", 25, 1001010);
     console.log(s);
     // console.log(s.getstuNo(),12345);
@@ -126,12 +124,8 @@ var d;
     console.log(Student.type); // Student
     console.log(Student.getType()); // Student
 })(d || (d = {}));
-var Stu = /** @class */ (function () {
-    function Stu() {
-        this.name = 123;
-    }
-    Stu.prototype.getName = function () {
-        return this.name;
-    };
-    return Stu;
-}());
+var Sex;
+(function (Sex) {
+    Sex[Sex["Boy"] = 0] = "Boy";
+    Sex[Sex["girl"] = 1] = "girl";
+})(Sex || (Sex = {}));

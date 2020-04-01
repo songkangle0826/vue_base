@@ -111,10 +111,6 @@ namespace d{
         }
     }
 
-    Student.prototype.ajax = 1123
-    console.log(Student.prototype,12345)
-
-
     let  s = new Student("skl",25,1001010)
 
     console.log(s);
@@ -132,11 +128,10 @@ namespace d{
 }
 
 
-class Stu{
-    constructor(){
-        this.name = 123
-    }
-    getName(){
-        return this.name
-    }
+
+
+enum Sex{
+    Boy,
+    girl
 }
+

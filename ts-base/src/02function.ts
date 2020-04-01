@@ -11,7 +11,7 @@ function hello(name:string):void{
 hello("加")
 
 
-// type用来定义一个类型或者 类型别名  => 分割符  分割参数和返回值的
+// type用来定义一个类型或者 类型别名  =>(分割符)  分割参数和返回值的
 type GetUserNameType = (firstName:string,lastName:string) => string
 // 函数表达式
 let getUserName: GetUserNameType = function(firstName:string,lastName:string):string{
