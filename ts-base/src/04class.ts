@@ -103,7 +103,7 @@ namespace d{
     }
 
     class Person{
-        @upperCase('哈哈哈')
+        // @upperCase('哈哈哈')
         name: string = 'zhufeng';
         // @noEnumerable
         getName(){

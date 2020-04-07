@@ -101,15 +101,13 @@ var d;
     }
     var Person = /** @class */ (function () {
         function Person() {
+            // @upperCase('哈哈哈')
             this.name = 'zhufeng';
         }
         // @noEnumerable
         Person.prototype.getName = function () {
             console.log('getName');
         };
-        __decorate([
-            upperCase('哈哈哈')
-        ], Person.prototype, "name", void 0);
         return Person;
     }());
     var p = new Person();
