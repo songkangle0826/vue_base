@@ -8,7 +8,7 @@
 *   给定索引处的UTF-16代码单元,如果索引超出字符串的长度,返回值为NaN
 * */
 
-let str = '12345他GV重新sfc';
+let str = '12345aA他GV重新sfc';
 
 console.log(str.charCodeAt());      // 49
 
@@ -17,3 +17,8 @@ console.log(str.charCodeAt('哈哈')); // 49
 console.log(str.charCodeAt(3));     // 52
 
 console.log(str.charCodeAt(99));    // NaN
+
+
+console.log(str.charCodeAt(5));    // 97
+
+console.log(str.charCodeAt(6));    // 65
