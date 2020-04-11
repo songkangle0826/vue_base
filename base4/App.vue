@@ -2,6 +2,15 @@
     <div>app
         <Parent @say="say"></Parent>
 
+
+
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
         <!--<button @click="broadcast">出发所有子组件带有eat的方法</button>-->
     </div>
 </template>
