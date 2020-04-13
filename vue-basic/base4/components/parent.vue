@@ -17,8 +17,9 @@
 
 
         <!--<Son2 :count="count" @update:count="changeCount"></Son2>-->
-        <!--<Son2 :count="count" @update:count="newValue=>count=newValue"></Son2>-->
-        <!--<Son2 :count.sync="count"></Son2>  &lt;!&ndash; 语法糖 这个写法是上面的替代品,默认组件内部需要出发 update:count&ndash;&gt;-->
+        <!--<Son2 :count="count" :money="money" @update:money="newValue=>money=newValue" @update:count="newValue=>count=newValue"></Son2>-->
+
+        <!--<Son2 :count.sync="count" :money.sync="money"></Son2>  &lt;!&ndash; 语法糖 这个写法是上面的替代品,默认组件内部需要出发 update:count&ndash;&gt;-->
 
         <!--<Son2 :value="count" @input="newValue=>count=newValue"></Son2>-->
         <!--<Son2 v-model="count"></Son2>       &lt;!&ndash; 语法糖 这个写法是上面的替代品,:value="count" @input="newValue=>count=newValue" &ndash;&gt;-->
