@@ -87,13 +87,13 @@
 * */
 
 /*
-* open(): 初始化 HTTP 请求参数，例如 URL 和 HTTP 方法，但是并不发送请求。
+* open(): 初始化 HTTP 请求参数，例如 Url 和 HTTP 方法，但是并不发送请求。
 *
 * 语法:
 * open(method, url, async, username, password)
 *
 *   method 参数是用于请求的 HTTP 方法。值包括 GET、POST 和 HEAD。
-    url 参数是请求的主体。大多数浏览器实施了一个同源安全策略，并且要求这个 URL 与包含脚本的文本具有相同的主机名和端口。
+    url 参数是请求的主体。大多数浏览器实施了一个同源安全策略，并且要求这个 Url 与包含脚本的文本具有相同的主机名和端口。
     async 参数指示请求使用应该异步地执行。如果这个参数是 false，请求是同步的，后续对 send() 的调用将阻塞，直到响应完全接收。如果这个参数是 true 或省略，请求是异步的，且通常需要一个 onreadystatechange 事件句柄。
     username 和 password 参数是可选的，为 url 所需的授权提供认证资格。如果指定了，它们会覆盖 url 自己指定的任何资格。
 * */
