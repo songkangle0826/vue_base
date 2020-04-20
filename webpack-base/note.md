@@ -75,7 +75,7 @@ yarn add webpack-dev-server -D
 module.exports = {
     plugins:[   // 数组 放着所有的webpack插件
         new HtmlWebpackPlugin({
-            template: './src/index.html',       // 模板
+            template: src基础篇,       // 模板
             filename: 'index.html',             // 输入的名字
             minify:{ // 最小化操作
                 removeAttributeQuotes: true,    // 去双引号等
@@ -88,12 +88,90 @@ module.exports = {
 ```
 
 
-### 
+### webpack解析css模块
+
+```javascript
+
+```
+
+
+#### 给css加前缀(autoprefixer)
+- 安装
+    - postcss-loader
+    - autoprefixer
+
+npm install postcss-loader autoprefixer -D
+
+- 配置
+```javascript
+// 1. -- 在webpack.config.js中配置
+module.exports = {
+    module:{
+        rules:[
+           {
+               // less(less less-loader) sass(node-sass sass-loader) stylus(stylus stylus-loader)
+               test:/\.less$/,
+               use: [
+                   MiniCssExtractPlugin.loader,
+                   'css-loader',       // @import 解析路径
+                   'postcss-loader',
+                   'less-loader'       // 把less -> css
+               ]
+           } 
+        ]
+    }
+}
+// 2. 新建一个postcss.config.js
+module.exports = {
+    plugins:[require('autoprefixer')]
+}
+```
 
 
 
+### webpack处理js
+- 使用babel-loader(babel转换器) @babel/core(babel的核心模块)  @babel/preset-env(按照什么模式转换)
+
+- babel-loader
+- @babel/core
+- @babel/preset-env
+- @babel/plugin-proposal-class-properties
+- @babel/plugin-proposal-decorators     // 解析class 类的装饰器
+- @babel/plugin-transform-runtime       // 解析promise和generator
+- @babel/runtime (as a production dependency生产依赖)// 上线需要,解析promise和generator
+
+- @babel/polyfill   (补丁)       // 生产依赖 (解析如'aa'.includes('a'))
 
 
+- 校验语法规范
+    - eslint 
+    - eslint-loader
+
+#### 设置全局变量
+- expose-loader
+
+以jquery为例
+```javascript
+/*
+  // 方法1
+    import $ from 'expose-loader?$!jquery';
+    console.log($)              //
+    console.log(window.$);      // 这样就挂载到window上了
+  // 方法2
+    在webpack中配置
+     {
+        test: require.resolve('jquery'),
+        use: 'expose-loader?$',         // 把jq设置为全局变量
+     }
+*/
+```
+
+#### 给每个模块都注入
+```javascript
+new webpack.ProvidePlugin({
+    $: 'jquery',       // 在每个模块中都注入$(jquery)符合
+})
+```
 
 
 
