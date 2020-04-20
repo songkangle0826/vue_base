@@ -86,14 +86,25 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/common.js":
+/*!***********************!*\
+  !*** ./src/common.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = 'index';\n\n\n\n\n//# sourceURL=webpack:///./src/common.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-eval("console.log(1111);\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("let str = __webpack_require__(/*! ./common.js */ \"./src/common.js\");\nconsole.log('哈哈哈哈');\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

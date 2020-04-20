@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build_build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server",
+    "build": "webpack"
+  },
   "devDependencies": {
+    "html-webpack-plugin": "^4.2.0",
     "webpack": "4",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }

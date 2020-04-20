@@ -22,5 +22,8 @@
     "vant": "^2.5.4",
     "vue": "^2.6.11",
     "yarn": "^1.22.4"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
   }
 }

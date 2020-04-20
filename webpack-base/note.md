@@ -12,12 +12,90 @@ webpack可以看做是模块打包机;他做的事情是,分析你的项目结�
 
 ## webpack安装
 - 安装本地的webpack
-- webpack webpack-cli -D
+- yarn add webpack webpack-cli(命令提示工具) -D
+- npm i webpack webpack-cli --save-dev(开发环境) 
+
+从npm5.2版本后,提供了一个命令: npx, 基于这个命令可以执行本地安装的模块
+
+$npx webpack  基于npx执行了webpack命令,而这个命令就是实现打包部署的
+- 找到node_modules/.bin
+- 要求我们得有webpack.cmd文件
+- 执行webpack.cmd
+
+也可以从package.json中配置可执行的
+```
+"scripts": {
+    "build": "webpack"
+}
+```
+
+
+## 基础打包语法
+> SRC: 存储项目开发的源文件
+> DIST: 打包后的文件目录
 
 ## webpack可以进行0配置
+从第四代版本,可以支持零配置
 - 打包工具 -> 输出后的结果(js模块)
 - 打包(支持我们的js模块化)
 
 ## 手动配置webpack
-- 默认配置的的文件名为webpack.config.js
+- 默认配置的的文件名为webpack.config.js护着webpackfile.js
+
+
+## commonJS和es6Module
+```javascript
+/*
+* ES6Module规范(引入必须在最开始)
+* 导入:import { bind } from './index'
+* 导出:export default = bind 或者 export { bind }
+* */
+
+/*
+* COMMOMJS规范(NODE)
+* 导入: let { debounce } = require('url')
+* 导出: module.exports = { debounce }
+* */
+```
+
+### 运行文件的几种方式
+- 在package.json中scripts中配置  webpack --config webpack.config.js
+- npx webpack --(加这个--,后面的字符表示为字符串) --config webpack.config.js
+
+
+### 启服务
+```javascript
+yarn add webpack-dev-server -D
+```
+
+
+### html-webpack-plugin
+输出引用的css和js文件到index.html中
+```javascript
+module.exports = {
+    plugins:[   // 数组 放着所有的webpack插件
+        new HtmlWebpackPlugin({
+            template: './src/index.html',       // 模板
+            filename: 'index.html',             // 输入的名字
+            minify:{ // 最小化操作
+                removeAttributeQuotes: true,    // 去双引号等
+                collapseWhitespace: true,       // 折叠压缩到一行
+            },
+            hash: true,                         // 加版本
+        }) 
+    ]
+}
+```
+
+
+### 
+
+
+
+
+
+
+
+
+
 
