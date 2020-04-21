@@ -59,8 +59,8 @@ $npx webpack  基于npx执行了webpack命令,而这个命令就是实现打包�
 ```
 
 ### 运行文件的几种方式
-- 在package.json中scripts中配置  webpack --config webpack.config.js
-- npx webpack --(加这个--,后面的字符表示为字符串) --config webpack.config.js
+- 在package.json中scripts中配置  webpack --config webpack.config多入口配置.js
+- npx webpack --(加这个--,后面的字符表示为字符串) --config webpack.config多入口配置.js
 
 
 ### 启服务
@@ -172,6 +172,17 @@ new webpack.ProvidePlugin({
     $: 'jquery',       // 在每个模块中都注入$(jquery)符合
 })
 ```
+
+
+
+
+
+### sourceMap
+
+
+
+
+### 跨域请求的三种方式
 
 
 
