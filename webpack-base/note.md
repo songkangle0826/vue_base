@@ -188,3 +188,41 @@ new webpack.ProvidePlugin({
 
 
 
+
+
+## 优化篇
+### noParse
+不去解析某个库(插件)的依赖关系
+```javascript
+
+```
+
+
+### exclude和include
+```javascript
+module.exports = {
+    module:{
+        noParse: /jquery/,  // 不去解析jquery中的依赖关系
+        rules:[
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,            //默认会找node_modules不能满足的条件（排除不处理的目录
+                include: path.resolve('src'),       //导入的文件将由加载程序转换的路径或文件数组（把要处理的目录包括进来        
+                use:{
+                    loader: 'babel-loader',
+                    options:{
+                        presets:[
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
+```
+
+
+
+
