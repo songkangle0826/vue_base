@@ -80,7 +80,7 @@
 
 
  	// Load entry module and return exports
- 	return __webpack_require__(__webpack_require__.s = "./src/index.js");  // 入口文件
+ 	return __webpack_require__(__webpack_require__.s = "./src/indexwebpack自动优化功能.js");  // 入口文件
  })
 ({
 
@@ -92,7 +92,7 @@
     "./src/index.js":
     (function(module, exports, __webpack_require__) {
 
-        eval("let str = __webpack_require__(/*! ./common.js */ \"./src/common.js\");\nconsole.log('哈哈哈哈');\n\n//# sourceURL=webpack:///./src/index.js?");
+        eval("let str = __webpack_require__(/*! ./common.js */ \"./src/common.js\");\nconsole.log('哈哈哈哈');\n\n//# sourceURL=webpack:///./src/indexwebpack自动优化功能.js?");
 
     })
 

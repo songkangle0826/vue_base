@@ -1,15 +1,16 @@
-// import jquery from 'jquery'
+let button = document.createElement('button');
+button.innerHTML = '哈哈哈';
 
-// import moment from 'moment'
-// import  'moment/locale/zh-cn'
-// moment.locale('zh-cn')
-// let date = moment().startOf('hour').fromNow();       // 7 分钟前
-// console.log(date)
+// vue的懒加载 react的懒加载
+button.addEventListener('click',function(){
+    console.log(11);
+    // 草案中的语法  JSONP实现动态加载文件
+    import('./source.js').then((data)=>{
+        console.log(data.default)
+    })
+})
+
+document.body.appendChild(button);
 
 
-import React,{ Components } from 'react';
-import ReactDOM from 'react-dom';
 
-ReactDOM.render(<div>
-    安静安静
-</div>,document.getElementById('app'))

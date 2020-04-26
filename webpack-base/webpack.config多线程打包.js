@@ -1,11 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+
+// 多进程打包
+let Happypack = require('happypack');
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/indexwebpack自动优化功能.js',
     devServer:{
-        hot: true,  // 启动热更新
         port: 3000,
         open: true,
         contentBase: './dist'
@@ -17,24 +19,25 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 include: path.resolve('src'),
-                use:{
-                    loader: 'babel-loader',
-                    options:{
-                        presets:[
-                            '@babel/preset-env',
-                            '@babel/preset-react'
-                        ]
-                    }
-                }
+                //use:{
+                //    loader: 'babel-loader',
+                //    options:{
+                //        presets:[
+                //            '@babel/preset-env',
+                //            '@babel/preset-react'
+                //        ]
+                //    }
+                //}
+                use: 'Happypack/loader?id=js'
             },
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader']
+                use: 'Happypack/loader?id=css'
             }
         ]
     },
     output:{
-        filename: '[name].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname,'dist')
     },
     plugins:[
@@ -43,8 +46,23 @@ module.exports = {
         }),
         // 用于忽略某些特定的模块，让webpack不把这些指定的模块打包进去
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // //moment这个库中，如果引用了./locale/目录的内容，就忽略掉，不会打包进去
-        
-        new webpack.NamedChunksPlugin(),        // 打印热更新的模块路径
-        new webpack.HashedModuleIdsPlugin(),    // 热更新插件
+
+        new Happypack({
+            id: 'js',
+            use: [{
+                loader: 'babel-loader',
+                options:{
+                    presets:[
+                        '@babel/preset-env',
+                        '@babel/preset-react'
+                    ]
+                }
+            }]
+        }),
+        new Happypack({
+            id: 'css',
+            use: ['style-loader','css-loader']
+        })
+
     ]
 }

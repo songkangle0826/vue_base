@@ -12,7 +12,7 @@ module.exports = {
     mode: 'production', // production
     // 多入口
     entry:{
-        home: './src/index.js',
+        home: './src/indexwebpack自动优化功能.js',
     },
     output:{
         filename: '[name].[hash].js',

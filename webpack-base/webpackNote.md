@@ -222,3 +222,57 @@ build: {
 
 
 ### 使用webpack-bundle-analyzer进行体积分析
+
+
+
+
+
+### webpack实现多进程打包(happypack  可以实现多进程来打包)
+```javascript
+let Happypack = require('happypack');
+module.exports = {
+    module:{
+        rules:[
+            {
+                test: /\.js$/,
+                use: 'Happypack/loader?id=js'
+            },
+            {
+                test: /\.css$/,
+                use: 'Happypack/loader?id=css'
+            }
+        ]
+    },
+    plugins:[
+        new Happypack({
+            id: 'js',
+            use: [{
+                loader: 'babel-loader',
+                options:{
+                    presets:[
+                        '@babel/preset-env',
+                        '@babel/preset-react'
+                    ]
+                }
+            }]
+        }),
+        new Happypack({
+            id: 'css',
+            use: ['style-loader','css-loader']
+        })
+    ]
+}
+```
+
+
+### webpack自带的功能
+
+
+
+### webpack抽取公共代码
+
+
+### webpack实现懒加载
+```javascript
+
+```
