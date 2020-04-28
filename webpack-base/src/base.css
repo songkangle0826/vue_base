@@ -1,0 +1,26 @@
+body{
+    background: red;
+    transform: rotate(-90deg);
+}
+#app{
+    font-size: 50px;
+    transform: rotate(90deg);
+    color: #333333;
+}
+
+#div{
+    font-size: 50px;
+    transform: rotate(90deg);
+    color: #333333;
+}
+.span{
+    font-size: 20px;
+    color: #ffffff;
+}
+
+
+
+p{
+    font-size: 10px;
+    color: #ffffff;
+}

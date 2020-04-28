@@ -1,0 +1,7 @@
+@import './base.css';
+body{
+    background: blue;
+}
+#app{
+    box-shadow: 0 1px 1px red;
+}
