@@ -1,17 +1,28 @@
+/*! make 2020 by 哈哈 */
+.index {
+  color: red;
+}
+
+.index span {
+  color: orange;
+}
+
+.app {
+  font-size: 50px;
+}
+
 body {
   background: red;
-  transform: rotate(-90deg);
+  /*transform: rotate(-90deg);*/
 }
 
 #app {
   font-size: 50px;
-  transform: rotate(90deg);
   color: #333333;
 }
 
 #div {
   font-size: 50px;
-  transform: rotate(90deg);
   color: #333333;
 }
 
@@ -31,7 +42,5 @@ body {
 
 body div {
   background: green;
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
   font-size: 18px;
 }
