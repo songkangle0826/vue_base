@@ -1,7 +1,15 @@
 <template>
     <div class="app">
         App--{{ app }}
-        <hello-world></hello-world>
+
+        <hello-world :value="msg" @input="(value)=>msg=value"></hello-world>
+        
+        <hello-world v-model="num"></hello-world>
+
+
+        <hello-world :money.sync="money" :msg.sync="msg"></hello-world>
+
+
     </div>
 </template>
 <script>
@@ -9,7 +17,10 @@
     export default{
         data(){
             return{
-                app: '1234567'
+                num: '1234567',
+                app: '1234',
+                money: 1000,
+                msg: 'woshishui'
             }
         },
         components:{

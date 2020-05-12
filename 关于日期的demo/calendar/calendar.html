@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		#box{
+			width: 450px;
+			height: 430px;
+			border:2px solid #3399ff;
+			margin: 50px auto 0px;
+			border-radius: 5px;
+		}
+		#top{
+			width:100%;
+			height:50px;
+			border-bottom: 1px solid #3399ff;
+			font-size:15px;
+			text-align: center;
+		}
+		#year{
+			display: inline-block;
+			line-height: 36px;
+		}
+		#year,#month{
+			display: inline-block;
+			line-height: 36px;
+			text-align: center;
+			margin: 0px 20px;
+		}
+		#con{
+			width:420px;
+			height:380px;
+			margin:0px auto 0px;
+		}
+		#con ul.week{
+			width:420px;
+			height:45px;
+		}
+		#con ul.week li{
+			width:60px;
+			height:45px;
+			line-height: 45px;
+			text-align: center;
+			float: left;
+		}
+		#con ul.week li.weekend{color:red;}
+		#con ul.day li{
+			width: 60px;
+			height:50px;
+			border-bottom: 1px solid #ddd;
+			float:left;
+			text-align: center;
+			font-size:20px;
+		}
+		#con ul.day li i{
+			display: block;
+			line-height: 30px;
+			height:30px;
+			font-size: 14px;
+		}
+		#con ul.day li span{
+			display: block;
+			line-height: 20px;
+			height:20px;
+			font-size: 12px;
+		}
+		.background{
+			background: red;
+		}
+		.select{
+			background: red;
+		}
+		#head{
+			text-align:center;
+			padding-top: 30px;
+		}
+		.div{
+			display: inline-block;
+			width:50px;
+			height: 36px;
+			border: 1px solid #f5f5f5;
+			line-height: 36px;
+			text-align: center;
+		}
+		.set-input{
+			margin-top: 30px;
+
+		}
+		input{
+			width:300px;
+			padding:5px 10px;
+			list-style: none;
+		}
+		.set-money{
+			width: 100px;
+			height: 36px;
+			background:#f70000;
+			line-height: 36px;
+			text-align: center;
+			margin-top: 40px;
+
+		}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<div data-id="1" class="div">周一</div>
+		<div data-id="2" class="div">周二</div>
+		<div data-id="3" class="div">周三</div>
+		<div data-id="4" class="div">周四</div>
+		<div data-id="5" class="div">周五</div>
+		<div data-id="6" class="div">周六</div>
+		<div data-id="0" class="div">周天</div>
+	</div>
+	<div id="box">
+		<div id="top">
+			<button style="width:90px;height:36px;margin-left:20px;" id="inquriy" onclick="queryLeft()">查询上个月</button>
+			<span id="year"></span>年<span id="month"></span>月
+			<button style="width:90px;height:36px;margin-left:20px;" id="inquriy" onclick="queryRight()">查询下个一月</button>
+		</div>
+		<div id="con">
+			<ul class="week">
+				<li>日</li>
+				<li>一</li>	
+				<li>二</li>
+				<li>三</li>
+				<li>四</li>
+				<li>五</li>
+				<li>六</li>
+			</ul>
+			<ul class="day">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+				<li><i></i><span></span></li>
+			</ul>
+		</div>
+
+		<div class="set-input"><input type="text" id="setInput" onblur="myBlur()" placeholder="请输入设置金额"></div>
+		<div class="set-money" id="setMoney">设置金额</div>
+	</div>
+	<script type="text/javascript">
+		var setMoney = document.getElementById('setMoney');
+		var listYear = document.getElementById('year');
+		var listMonth = document.getElementById('month');
+		listYear.innerHTML = (new Date()).getFullYear();    //设置头部当前年
+		listMonth.innerHTML = (new Date()).getMonth()+1;    //设置头部当前月
+
+		var m_day = [31,28,31,30,31,30,31,31,30,31,30,31];    //每个月的天数
+		// 判断闰年  -- 闰年2月29天,平年2月28天
+		function getDayNum(year,month){
+			if(year%4==0&&year%100!=0||year%400==0){
+				m_day[1] = 29;
+				return m_day[month]
+			}else{
+				m_day[1] = 28;
+				return m_day[month]
+			}
+		}
+
+		// 获取要点击的周几
+		var div = document.getElementsByClassName('div');
+		// 获取ul下面所有的li
+		var dayLi = document.querySelector('.day').getElementsByTagName('li');
+		// 存放数据的地方
+		var obj = {};   
+		 
+		
+		// 左点击 -- 改变当前年和当前月
+		function queryLeft(){
+			if (listYear.innerHTML==(new Date()).getFullYear()&&listMonth.innerHTML==(new Date()).getMonth()+1) {
+				alert("不能再点击了")
+				return
+			};
+			if(Number(listMonth.innerHTML)==1){
+				listMonth.innerHTML = 12;
+				listYear.innerHTML = Number(listYear.innerHTML) - 1;
+				query();
+				return
+			}
+			listMonth.innerHTML = Number(listMonth.innerHTML) - 1;
+			query();
+		}
+
+		// 右点击 -- 改变当前年和当前月
+		function queryRight(){
+			// 把当年月+1,如果遇到12月,把月份至为1,然后年份+1
+			if(Number(listMonth.innerHTML)==12){
+				listMonth.innerHTML = 1;
+				listYear.innerHTML = Number(listYear.innerHTML) +1;
+				query();
+				return
+			}
+			listMonth.innerHTML= Number(listMonth.innerHTML)+1;
+			query();
+		}
+
+		// 改变日期
+		function query(){
+
+			var year = listYear.innerHTML;	   //获取选中的年份
+			var month = (listMonth.innerHTML-1).toString(); //获取选择的月份--月份是从0开始的,数字0默认是false
+
+			// 如果没有年份和月份--就无法进行下去
+			if(!(year&&month)){
+				alert("系统出错了,请重新加载")
+				return
+			}
+
+			// 清空之前所有的li选中样式
+			for(let i = 0;i<=dayLi.length-1;i++){
+				dayLi[i].classList.remove("background");
+			}
+			// 清空之前所有的周期选中样式
+			for(let i = 0;i<=div.length-1;i++){
+				div[i].classList.remove("select");
+			}
+
+			// 质空li标签里的所以内容
+			each(function(index){
+				dayLi[index].innerHTML = "<i></i><span></span>";
+			},0,dayLi.length-1)
+
+			
+			var thisTime = new Date(year,month,1) //获取选择年月的第一天
+			var firstDay = thisTime.getDay();     //获取选择年月的第一天是星期几
+
+			// 把日期填入到当年的li下的i中
+			each(function(index){
+				dayLi[firstDay-1+index].children[0].innerHTML = index;
+			},1,getDayNum(year,month))
+
+			console.log(obj)
+
+
+			var keys =year+'-'+(Number(month)+1);   //这里是拼接obj的取值
+
+			console.log(keys);
+
+			//回显数据
+			if(obj.hasOwnProperty(keys)){
+				obj[keys].forEach(function(item,index){
+					for(let i = 0;i<=dayLi.length-1;i++){
+						if(Number(dayLi[i].children[0].innerHTML)==Number(item.day)){
+							dayLi[i].classList.add("background");
+							dayLi[i].children[1].innerHTML = item.money;
+						}
+					}
+				})
+			}
+
+		}
+
+		
+
+
+		//点击单个的选择,这里必须用let,用var有问题
+		for(let i =0;i<dayLi.length-1;i++){
+			dayLi[i].onclick = function(){
+				let that = this;
+				if (!this.children[0].innerHTML) return;    // 如果没有数据日期就不让点击
+
+				// 这里还有一个判断...就是当前年当前月当前月之前的日期不能点击
+
+				var year = listYear.innerHTML;				// 获取所点击的年份
+				var month = listMonth.innerHTML; 			// 获取所点击的月份
+
+				// 添加选中日的日期
+				var keys = year+'-'+month;
+				if(!obj.hasOwnProperty(keys)){
+					obj[keys] = [];
+				}
+				// 判断当前点击的日是否已经选择了,没有选择--选择;选中--取消选择   this表示当前点击的这个li
+				if(!this.classList.contains('background')){
+					this.classList.add('background');    //给当前点击添加样式
+					if(obj.hasOwnProperty(keys)){
+						obj[keys].push({
+							day: this.children[0].innerHTML,
+							money: ""
+						})
+						console.log(obj)
+					}
+				}else{
+					this.classList.remove('background');  //移除选中样式
+					if(obj.hasOwnProperty(keys)){
+						obj[keys].forEach(function(item,index){
+
+							// 这里不能用this了,this指向不同了,所以换that
+							if(Number(item.day)==that.children[0].innerHTML){
+								obj[keys].splice(index,1)
+							}
+						})
+					}
+				}
+			}
+		}
+
+		// 点击周几的选择,这里必须用let,用var有问题
+		for(let j =0;j<=div.length-1;j++){
+			div[j].onclick = function(){
+				var year = listYear.innerHTML;				// 获取所点击的年份
+				var month = listMonth.innerHTML; 			// 获取所点击的月份
+
+				var keys = year+'-'+month;
+				if(!obj.hasOwnProperty(keys)){
+					obj[keys] = [];
+				}
+				var val = Number(this.getAttribute('data-id'));   //获取当前点击的是周几,周日代表0
+				
+				// 判断当前点击的是否选中
+				if(!this.classList.contains('select')){
+					this.classList.add('select');
+
+					// 这里遍历,是选择的dayLi的下标
+					for(let m = val;m<=dayLi.length-1;m += 7){
+						// console.log(m)
+						// console.log(dayLi[m].children[0].innerHTML)
+						if(dayLi[m].children[0].innerHTML){
+							dayLi[m].classList.add("background");  //添加class
+
+							obj[keys].push({
+								day: dayLi[m].children[0].innerHTML,
+								money: ""
+							})
+							var arr = [];
+							// 数组去重--对象去重
+							obj[keys].forEach(function(item,index){
+								let flag = true
+								for(let i = 0;i<arr.length;i++){
+									if(Number(item.day)== Number(arr[i].day)){
+										flag = false;
+									}
+								}
+								if(flag){
+									arr.push(item);
+								}
+							})
+							obj[keys] = arr;
+						}
+					}
+				}else{
+					this.classList.remove('select');
+					for(let m = val;m<=dayLi.length-1;m += 7){
+
+						if(dayLi[m].children[0].innerHTML){
+							dayLi[m].classList.remove("background");  //移除的class
+							
+							// 把对象中的去除掉
+							obj[keys].forEach(function(item,index){
+								if(Number(item.day)==Number(dayLi[m].children[0].innerHTML)){
+									obj[keys].splice(index,1)
+								}
+							})
+
+						}
+
+					}
+				}
+			}
+		}
+		
+		function myBlur(){
+			var money = document.getElementById('setInput');
+			console.log(111)
+			if(!/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(money.value)){
+				alert("请输入有效的金额");
+				return
+			}
+		}
+		
+
+		setMoney.onclick = function(){
+			var money = document.getElementById('setInput');
+			console.log(money.value)
+			if(!/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(money.value)){
+				alert("请输入有效的金额");
+				return
+			}
+			// 判断obj是否为空
+			if(Object.getOwnPropertyNames(obj).length==0){
+				alert("请至少选择一个日期");
+				return
+			}
+			for(var i in obj) {
+
+			    console.log(i,":",obj[i]);
+
+			    obj[i].forEach(function(item,index){
+			    	item.money = '¥'+money.value
+			    })
+			}
+			query()
+
+		}
+
+
+
+		query()
+
+		// 循环封装
+		function each(callback,min,max){
+			if(Number(min)>=Number(max)) return
+			for(var i = min;i<=max;i++){
+				callback(i);
+			}
+		}
+
+
+	</script>
+</body>
+</html>

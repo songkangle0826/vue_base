@@ -7,6 +7,11 @@
 // 答: 4.X版本,把generator分离出来了,需要单独安装
 ```
 
+### express创建项目
+```
+express react-cms-server
+```
+
 ### 安装smyql
 ```javascript
 // npm install mysql --save

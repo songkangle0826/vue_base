@@ -18,9 +18,9 @@ new Vue({
     render: (h)=>h(App)
 })
 
-ReactDOM.render(<div>
-    <ABB/>
-    <span>这里是react语法</span>
-</div>,document.querySelector('#abb'))
+// ReactDOM.render(<div>
+//     <ABB/>
+//     <span>这里是react语法</span>
+// </div>,document.querySelector('#abb'))
 
 
