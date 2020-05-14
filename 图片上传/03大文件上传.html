@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input type="file" id="fileInp" accept="image/*">
+<span id="progress">0%</span>  <br/>
+<img src="" alt="" id="serverImg">
+<script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.15.0/js/md5.js"></script>
+<script src="ajax.js"></script>
+    <!--
+        客户端
+            大文件上传
+                1. 把大文件切片化(5个)  => file是Blob类的实例,Blob.prototype.slice 可以吧一个文件切换处理
+
+                    ( HTTP可以多个并发传递6-7个,利用http请求的并发性 )
+                2. 同事并发五个切片的上传
+
+                3. 等5个都上传完,再向服务器发送一个合并图片的请求
+         服务端:
+            /chunk 处理每一个切片的请求处理
+                chunk: 文件切片
+                filename: 切片的名称
+                    hash-数字.后缀  表示第几个切片
+
+            upload目录下创建一个以hash命名的历史目录
+                xxx122342-0.png
+                xxx122342-1.png
+                xxx122342-2.png
+                xxx122342-3.png
+
+            /merge 合并
+                filename: 文件名 hash.后缀
+                根据hash找到之前存储的历史目录,按顺序读取目录中的切片信息,把每一个切片信息合并到最后一张图片中(合并完成后记得删除历史目录和里面的切片即可)
+
+
+          上传进度:  1. 监听切片上传的进度
+                   2. 监听ajax的请求进度
+
+    -->
+<script>
+
+    let _data = new Proxy({total:0},{
+        set(target,key,value){
+            target[key] = value;
+            if(_data.total >= 100){
+                progress.innerHTML = '上传完成';
+                return
+            }
+            progress.innerHTML = `${ _data.total }%`;
+
+        },
+        get(){
+
+        }
+    })
+
+    fileInp.onchange = async function(){
+        let file = fileInp.files[0];
+        progress.innerHTML = `0%`;
+        if(!file) return
+        // 把一个文件切成五个切片(固定切片数量 也可以固定切片大小)
+        let partSize = file.size / 5,
+            cur = 0;
+            i = 0,
+            partList = [];
+        let { hash,suffix,filename} = $formatFileName(file.name)
+        while(i<5){
+            partList.push({
+                chunk: file.slice(cur,cur+partSize),
+                filename: `${hash}-${i}.${suffix}`
+            })
+            cur += partSize
+            i++;
+        }
+        // 并发切片请求
+        partList = partList.map(item=>{
+            let formData = new FormData();
+            formData.append('chunk',item.chunk);
+            formData.append('filename',item.filename);
+            return $ajax({
+                url: '',
+                data: formData
+            }).then(resolve=>{
+                if(resolve.code === 0){
+                    _data.total += 20;
+                    return Promise.resolve(result);
+                }else{
+                    return Promise.reject(result);
+                }
+            })
+        });
+
+
+        // 合并切片
+        await Promise.all(partList);
+        let result = await $ajax({
+            url: 'http://127.0.0.1:5678/merge',
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: `${$formatFileName(file.name).filename}`
+        });
+        if(result.code === '0'){
+            serverImg.src = result.data.path;
+        }else{
+
+        }
+
+
+        console.log(partList);
+    }
+</script>
+
+</body>
+</html>

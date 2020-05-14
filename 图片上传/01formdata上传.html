@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- accept运行上传的内容 -->
+    <input type="file" id="fileInp" accept="image/*">
+    <img src="" alt="" id="serverImg">
+    <!-- 基于formData数据格式上传图片 file ajax请求POST -->
+    
+
+    <!-- 传递给服务器 当前文件的BASE64编码(流信息) -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.15.0/js/md5.js"></script>
+    <script src="ajax.js"></script>
+    <script>
+        let limitType = ['image/jpeg','image/jpg','image/png','image/gif'];
+        let limitMax = 100*1024;
+        fileInp.onchange = async function(){
+            let file = fileInp.files[0];
+            console.log(file);
+            if(!file) return;
+            if(file.size > limitMax){
+                alert('您传的图片太大了');
+                fileInp.value = "";
+                return
+            };
+            if(limitType.indexOf(file.type) == -1){
+                alert('最大只能上传100kB');
+                fileInp.value = "";
+                return
+            };
+
+            let formData = new FormData();
+            // Content-Type: mutilpart/form-data
+            let obj = $formatFileName(file.name);
+            formData.append('chunk',file);
+            formData.append('filename',obj.filename)
+
+            let result = await $ajax({
+                url: 'http://127.0.0.1:3001/upload',
+                data: formData
+            });
+            if(result.code === '0'){
+                serverImg.src = result.data.path;
+            }else{
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>
